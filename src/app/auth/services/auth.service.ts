@@ -32,13 +32,13 @@ export class authService {
     localStorage.clear();
   }
 
-  checkAuthentication(): Observable<boolean> | boolean{
+  checkAuthentication(): Observable<boolean>{
 
-    if(!localStorage.getItem('token')) return false;
+    if(!localStorage.getItem('token')) return of(false);
 
     const token = localStorage.getItem('token');
 
-    return this.http.get<User>(`${this.baseUrl}/user/1`)
+    return this.http.get<User>(`${this.baseUrl}/users/1`)
     .pipe(
        tap(user => this.user = user),
        map(user => !!user),
